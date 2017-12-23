@@ -1,0 +1,5 @@
+=pod
+
+This module is an attempt to create a Perl 6 grammar for Emacs Muse and Text::Amuse markups.
+
+=cut

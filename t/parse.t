@@ -3,6 +3,8 @@ use Muse::Actions;
 use Muse::Grammar;
 use Test;
 
+my $actions = Muse::Actions.new;
+
 ok  Muse::Grammar.parse("#foo bar", :rule('directive')), 'Simple directive';
 nok Muse::Grammar.parse("#foo", :rule('directive')), 'Directive must have a value';
 ok  Muse::Grammar.parse("#foo bar\n", :rule('directive')), 'Directive consumes a newline';
@@ -11,6 +13,14 @@ nok Muse::Grammar.parse("#foo bar\n\n", :rule('directive')), 'Directive consumes
 ok  Muse::Grammar.parse("#foo bar\n", :rule('directives')), 'Metadata section may consist of one directive';
 ok  Muse::Grammar.parse("", :rule('directives')), 'Metadata section may have no directives';
 ok  Muse::Grammar.parse("#foo bar\n#name value", :rule('directives')), 'Metadata section may consist of two directives';
+
+my %meta = Muse::Grammar.parse(
+q:to/END/
+#title Book title
+#author Anonymous
+END
+, :rule('directives'), :actions($actions)).made;
+is-deeply {title => 'Book title', author => 'Anonymous'}, %meta, 'Parsing metadata';
 
 ok  Muse::Grammar.parse("\n", :rule('blankline')), 'Completely empty blankline';
 ok  Muse::Grammar.parse("", :rule('blankline')), 'The last line in a file is also a blank line';
@@ -32,19 +42,12 @@ nok Muse::Grammar.parse("¹", :rule('note_number')), 'Unicode digits are not all
 
 ok  Muse::Grammar.parse("foo", :rule('str')), 'Simple string';
 nok Muse::Grammar.parse("foo bar", :rule('str')), "String can't contain whitespace";
+is-deeply Muse::Grammar.parse('foo', :rule('str'), :actions($actions)).made,
+          Muse::Inline::Str.new(contents => 'foo'), 'Parsing string as inline object';
 
 ok  Muse::Grammar.parse("*foo*", :rule('emph')), 'Emphasis';
 ok  Muse::Grammar.parse("**foo**", :rule('strong')), 'Strong';
 
 ok  Muse::Grammar.parse("foo bar", :rule('inlines')), 'Two strings separated by whitespace';
-
-my $actions = Muse::Actions.new;
-my %meta = Muse::Grammar.parse(
-q:to/END/
-#title Book title
-#author Anonymous
-END
-, :rule('directives'), :actions($actions)).made;
-is-deeply {title => 'Book title', author => 'Anonymous'}, %meta, 'Parsing metadata';
 
 done-testing;

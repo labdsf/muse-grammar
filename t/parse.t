@@ -46,7 +46,8 @@ nok Muse::Grammar.parse("¹", :rule('note_number')), 'Unicode digits are not all
 ok  Muse::Grammar.parse("foo", :rule('str')), 'Simple string';
 nok Muse::Grammar.parse("foo bar", :rule('str')), "String can't contain whitespace";
 is-deeply Muse::Grammar.parse('foo', :rule('str'), :actions($actions)).made,
-          Muse::Inline::Str.new(contents => 'foo'), 'Parsing string as inline object';
+          Muse::Inline::Str.new(contents => 'foo'),
+          'Parsing string as inline object';
 
 ok  Muse::Grammar.parse("*foo*", :rule('emph')), 'Emphasis';
 ok  Muse::Grammar.parse("**foo**", :rule('strong')), 'Strong';

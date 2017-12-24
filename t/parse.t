@@ -34,6 +34,9 @@ ok  Muse::Grammar.parse("-----", :rule('horizontal_rule')), 'Five (and more) das
 ok  Muse::Grammar.parse("---- ", :rule('horizontal_rule')), 'Whitespace is allowed after horizontal rule';
 nok Muse::Grammar.parse(" ----", :rule('horizontal_rule')), 'Whitespace is not allowed before horizontal rule';
 nok Muse::Grammar.parse("---- -", :rule('horizontal_rule')), 'No dashes are allowed after horizontal rule whitespace';
+is-deeply Muse::Grammar.parse("----", :rule('horizontal_rule'), :actions($actions)).made,
+          Muse::Block::HorizontalRule.new(),
+          'Parsing horizontal rule as block object';
 
 ok  Muse::Grammar.parse("1", :rule('note_number')), 'Note number can be 1';
 nok Muse::Grammar.parse("0", :rule('note_number')), "Note number can't be 0";

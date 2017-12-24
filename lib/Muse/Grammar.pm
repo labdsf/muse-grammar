@@ -1,5 +1,5 @@
 use v6;
-unit grammar Text::Muse::Grammar;
+unit grammar Muse::Grammar;
 
 token TOP  { <directives> }
 

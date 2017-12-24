@@ -1,5 +1,5 @@
 use v6;
-unit class Text::Muse::Actions;
+unit class Muse::Actions;
 
 method directive ($/) {
     make ($<directive_key>.Str => $<directive_value>.Str)

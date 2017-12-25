@@ -15,3 +15,9 @@ method horizontal_rule ($/) {
 method str ($/) {
     make Muse::Inline::Str.new(contents => $/.Str);
 }
+method inline:sym<str> ($/) {
+    make $<str>.made;
+}
+method emph ($/) {
+    make Muse::Inline::Emph.new(contents => $<inline>».made);
+}

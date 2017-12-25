@@ -49,7 +49,9 @@ is-deeply Muse::Grammar.parse('foo', :rule('str'), :actions($actions)).made,
           Muse::Inline::Str.new(contents => 'foo'),
           'Parsing string as inline object';
 
-ok  Muse::Grammar.parse("*foo*", :rule('emph')), 'Emphasis';
+is-deeply Muse::Grammar.parse("*foo*", :actions($actions), :rule('emph')).made,
+          Muse::Inline::Emph.new(contents => [Muse::Inline::Str.new(contents => 'foo')]),
+          'Emphasis';
 ok  Muse::Grammar.parse("**foo**", :rule('strong')), 'Strong';
 
 ok  Muse::Grammar.parse("foo bar", :rule('inlines')), 'Two strings separated by whitespace';

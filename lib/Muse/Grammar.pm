@@ -29,8 +29,12 @@ token para { <inlines> <.blankline>* }
 
 token inlines { (<!before eol> <inline>)+ <.eol>? }
 
-token inline { <str> | <space> | <emph> | <strong> }
+proto token inline { * }
+      token inline:sym<str> { <str> }
+      token inline:sym<space> { <space> }
+      token inline:sym<emph> { <emph> }
+      token inline:sym<strong> { <strong> }
 token str { \w+ }
 token space { <.ws>+ }
-token emph { '*' <!after ws> (<!before '*'> <inline>)+ '*' }
-token strong { '**' <!after ws> (<!before '*'> <inline>)+ '**' }
+token emph { '*' <!after ws> [<!before '*'> <inline>]+ '*' }
+token strong { '**' <!after ws> [<!before '*'> <inline>]+ '**' }

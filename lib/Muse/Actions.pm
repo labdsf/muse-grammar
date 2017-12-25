@@ -21,3 +21,6 @@ method inline:sym<str> ($/) {
 method emph ($/) {
     make Muse::Inline::Emph.new(contents => $<inline>».made);
 }
+method strong ($/) {
+    make Muse::Inline::Strong.new(contents => $<inline>».made);
+}

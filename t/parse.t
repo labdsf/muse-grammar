@@ -52,7 +52,10 @@ is-deeply Muse::Grammar.parse('foo', :rule('str'), :actions($actions)).made,
 is-deeply Muse::Grammar.parse("*foo*", :actions($actions), :rule('emph')).made,
           Muse::Inline::Emph.new(contents => [Muse::Inline::Str.new(contents => 'foo')]),
           'Emphasis';
-ok  Muse::Grammar.parse("**foo**", :rule('strong')), 'Strong';
+
+is-deeply Muse::Grammar.parse("**foo**", :actions($actions), :rule('strong')).made,
+          Muse::Inline::Strong.new(contents => [Muse::Inline::Str.new(contents => 'foo')]),
+          'Strong';
 
 ok  Muse::Grammar.parse("foo bar", :rule('inlines')), 'Two strings separated by whitespace';
 

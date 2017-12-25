@@ -7,7 +7,7 @@ method directive ($/) {
     make ($<directive_key>.Str => $<directive_value>.Str)
 }
 method directives ($/) {
-    make (.made.key => .made.value for $<directive>);
+    make $<directive>».made;
 }
 method horizontal_rule ($/) {
     make Muse::Block::HorizontalRule.new();

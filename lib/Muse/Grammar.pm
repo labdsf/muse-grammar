@@ -35,6 +35,6 @@ proto token inline { * }
       token inline:sym<emph> { <emph> }
       token inline:sym<strong> { <strong> }
 token str { \w+ }
-token space { <.ws>+ }
+token space { <.ws>* "\n" | <.ws>+ }
 token emph { '*' <!after ws> [<!before '*'> <inline>]+ '*' }
 token strong { '**' <!after ws> [<!before '*'> <inline>]+ '**' }

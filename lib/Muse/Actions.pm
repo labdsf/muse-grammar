@@ -15,8 +15,15 @@ method horizontal_rule ($/) {
 method str ($/) {
     make Muse::Inline::Str.new(contents => $/.Str);
 }
+method space ($/) {
+    make Muse::Inline::Space.new();
+}
 method inline:sym<str> ($/) {
     make $<str>.made;
+}
+
+method inline:sym<space> ($/) {
+    make $<space>.made;
 }
 method para ($/) {
     make Muse::Block::Para.new(contents => $<inlines>.made);

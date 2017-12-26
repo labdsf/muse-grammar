@@ -25,6 +25,9 @@ method inline:sym<str> ($/) {
 method inline:sym<space> ($/) {
     make $<space>.made;
 }
+method inline:sym<symbol> ($/) {
+    make Muse::Inline::Str.new(contents => $/.Str);
+}
 method para ($/) {
     make Muse::Block::Para.new(contents => $<inlines>.made);
 }

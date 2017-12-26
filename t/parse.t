@@ -59,4 +59,8 @@ is-deeply Muse::Grammar.parse("**foo**", :actions($actions), :rule('strong')).ma
 
 ok  Muse::Grammar.parse("foo bar", :rule('inlines')), 'Two strings separated by whitespace';
 
+is-deeply Muse::Grammar.parse("Foo", :actions($actions), :rule('para')).made,
+          Muse::Block::Para.new(contents => [Muse::Inline::Str.new(contents => 'Foo')]),
+          'Paragraph';
+
 done-testing;

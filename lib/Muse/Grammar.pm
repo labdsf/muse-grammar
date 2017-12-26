@@ -27,7 +27,7 @@ token header_marker { ^^ '*' ** 1..5 }
 
 token para { <inlines> <.blankline>* }
 
-token inlines { (<!before eol> <inline>)+ <.eol>? }
+token inlines { [<!before eol> <inline>]+ <.eol>? }
 
 proto token inline { * }
       token inline:sym<str> { <str> }

@@ -18,6 +18,12 @@ method str ($/) {
 method inline:sym<str> ($/) {
     make $<str>.made;
 }
+method para ($/) {
+    make Muse::Block::Para.new(contents => $<inlines>.made);
+}
+method inlines ($/) {
+    make $<inline>».made;
+}
 method emph ($/) {
     make Muse::Inline::Emph.new(contents => $<inline>».made);
 }

@@ -17,7 +17,7 @@ token horizontal_rule { '-' ** 4..* <.ws>* <.eol> }
 token block { <comment> | <horizontal_rule> | <para> }
 token blocks { <block>+ }
 
-token blankline { <ws>* <eol> }
+token blankline { <ws>* "\n" | <ws>+ $$ }
 
 token note_number { <[1..9]> <[0..9]>* }
 token primary_note_label { '[' <note_number> ']' }

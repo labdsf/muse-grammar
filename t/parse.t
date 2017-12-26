@@ -23,8 +23,8 @@ END
 is-deeply {title => 'Book title', author => 'Anonymous'}, %meta, 'Parsing metadata';
 
 ok  Muse::Grammar.parse("\n", :rule('blankline')), 'Completely empty blankline';
-ok  Muse::Grammar.parse("", :rule('blankline')), 'The last line in a file is also a blank line';
 ok  Muse::Grammar.parse("   \n", :rule('blankline')), 'Blankline may contain spaces';
+ok  Muse::Grammar.parse("  ", :rule('blankline')), 'The last line in a file is also a blank line';
 
 ok  Muse::Grammar.parse("----", :rule('horizontal_rule')), 'Four dashes is a horizontal rule';
 ok  Muse::Grammar.parse("----\n", :rule('horizontal_rule')), 'Horizontal rule consumes a newline';
